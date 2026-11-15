@@ -1,0 +1,17 @@
+﻿すみっち式 0円AI使い倒しマニュアル
+
+PCで使う練習用キットです。
+1. 公式ReleasesからFreeLLMAPIを入れて起動します。
+2. Google AI StudioでFreeのプロジェクトのAPIキーを用意し、Keysへ登録します。
+3. Playgroundで利用可能な無料モデルを選び、「01_見出しを作る.txt」を貼って実行します。
+4. 同じ会話へ「02_見出しを見直す.txt」を送り、内容を自分で確認します。
+5. 選んだ見出しをメモ帳等へ貼り、「リール見出し.txt」としてUTF-8で保存し、開き直します。
+6. 慣れたら「03_台本へ広げる.txt」で同じ題材を台本へ展開します。
+
+見本2本は説明用に執筆した例で、FreeLLMAPIの実応答ではありません。
+機密・個人情報・APIキーをプロンプトへ入れないでください。
+無料枠は提供元の条件・上限に従います。ChatGPTの有料プランが無料になるものではありません。
+FreeLLMAPIは個人の試用・学習向けです。本番業務では各社の条件と有料APIを別途確認します。
+
+公式：https://github.com/tashfeenahmed/freellmapi
+Google：https://aistudio.google.com/api-keys

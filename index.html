@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html lang="ja"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>すみっち式 0円AI使い倒しマニュアル</title><style>
+/* ===== すみっち共通ブロック（sk kit / 2026-08） =====
+   配色・幅・角丸・フォントは全て --sk-* 変数。
+   ページごとの THEME で上書きして、元のデザインに馴染ませる。 */
+:root{
+ --sk-ink:#242130; --sk-muted:#6E6878;
+ --sk-accent:#4A3F68; --sk-accent2:#6F5F96;
+ --sk-line:#E5E0EB; --sk-page:#FCFBFE; --sk-card:#FFFFFF;
+ --sk-surface:#F7F5FB; --sk-soft:#EEEAF8;
+ --sk-warm:#FFF3EF; --sk-warm-bd:#F0CBC0; --sk-warm-ink:#68433A; --sk-warm-b:#B24826;
+ --sk-dark1:#242130; --sk-dark2:#33475D; --sk-hl:#FFD9CB;
+ --sk-green:#06C755;
+ --sk-radius:22px; --sk-radius-sm:16px;
+ --sk-wrap:660px;
+ --sk-shadow:0 12px 34px rgba(0,0,0,.07);
+ --sk-font:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+ --sk-serif:var(--sk-font);
+}
+/* 親が display:flex / grid のページでも潰れないようにする。
+   また、ページ側が *{box-sizing:border-box} を持たない場合に
+   padding分だけ横へはみ出すため、ここで明示的に指定する。 */
+.sk-author-strip,.sk-sec,.sk-gap,.sk-cta,.sk-footer{width:100%;max-width:100%;flex:0 0 100%;
+ grid-column:1/-1;align-self:stretch;display:block;box-sizing:border-box}
+.sk-author-strip *,.sk-sec *,.sk-gap *,.sk-cta *,.sk-footer *,
+.sk-author-strip *:before,.sk-sec *:before,.sk-gap *:before,.sk-cta *:before,.sk-footer *:before,
+.sk-author-strip *:after,.sk-sec *:after,.sk-gap *:after,.sk-cta *:after,.sk-footer *:after{box-sizing:border-box}
+.sk-sec{font-family:var(--sk-font);line-height:1.85;color:var(--sk-ink);background:var(--sk-page);
+ padding:56px 16px;margin:0;text-align:left;font-size:16px;font-weight:400}
+.sk-wrap{width:min(var(--sk-wrap),100%);margin:0 auto}
+.sk-head{text-align:center;margin-bottom:26px}
+.sk-kicker{display:block;font-size:12px;font-weight:900;letter-spacing:.18em;color:var(--sk-accent2)}
+.sk-sec h2.sk-h,.sk-gap h2.sk-h,.sk-cta h2.sk-h{font-family:var(--sk-serif);
+ font-size:clamp(24px,4.2vw,34px);line-height:1.4;margin:8px 0 0;color:inherit;font-weight:700;letter-spacing:-.01em}
+.sk-br{display:none}
+/* -- 著者カード -- */
+.sk-author-strip{padding:18px 16px;background:var(--sk-surface);border-bottom:1px solid var(--sk-line);
+ font-family:var(--sk-font)}
+.sk-author{display:flex;align-items:center;gap:14px;width:min(420px,100%);margin:0 auto;padding:10px 14px;
+ border-radius:var(--sk-radius-sm);background:var(--sk-card);border:1px solid var(--sk-line);
+ text-decoration:none;color:var(--sk-ink);box-shadow:var(--sk-shadow);
+ transition:transform .2s ease,box-shadow .2s ease}
+.sk-author:hover{transform:translateY(-2px)}
+.sk-author img{width:52px;height:52px;flex:none;border-radius:50%;background:#fff;display:block}
+.sk-author-txt{min-width:0}
+.sk-author-role,.sk-author-name,.sk-author-id{display:block}
+.sk-author-role{font-size:11px;color:var(--sk-muted);line-height:1.5}
+.sk-author-name{font-weight:900;font-size:16px;line-height:1.45;color:var(--sk-ink)}
+.sk-author-id{font-size:11px;color:var(--sk-muted);font-weight:400;line-height:1.5}
+.sk-author-arrow{margin-left:auto;color:var(--sk-muted);opacity:.6;font-weight:900;font-size:18px}
+/* -- 疑問3連 -- */
+.sk-doubt-lead{margin:0 auto 22px;text-align:center;color:var(--sk-muted);font-size:15px;line-height:1.9}
+.sk-doubts{display:grid;gap:11px}
+.sk-doubt{display:flex;gap:13px;align-items:flex-start;background:var(--sk-card);border:1px solid var(--sk-line);
+ border-radius:var(--sk-radius-sm);padding:15px 18px;box-shadow:var(--sk-shadow)}
+.sk-doubt .sk-no{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
+ background:var(--sk-soft);color:var(--sk-accent);font-weight:900;font-size:12px}
+.sk-doubt p{margin:0;font-size:15px;line-height:1.8}
+.sk-answer{margin:18px 0 0;padding:19px 22px;border-left:5px solid var(--sk-accent2);background:var(--sk-soft);
+ border-radius:0 var(--sk-radius-sm) var(--sk-radius-sm) 0;font-size:14.5px;line-height:1.95}
+.sk-answer strong{color:var(--sk-accent)}
+.sk-answer .sk-n{font-weight:900;color:var(--sk-accent2)}
+/* -- 断絶 -- */
+.sk-gap{background:linear-gradient(160deg,var(--sk-dark1) 0%,var(--sk-dark2) 100%);color:#fff;
+ padding:64px 16px;font-family:var(--sk-font);line-height:1.85;font-size:16px}
+.sk-gap h2.sk-h{color:#fff}
+.sk-gap .sk-kicker{color:var(--sk-hl);opacity:.9}
+.sk-gap-lead{margin:0 auto;font-size:clamp(15.5px,2.2vw,17.5px);line-height:2;
+ color:rgba(255,255,255,.87);text-align:center}
+.sk-gap-lead strong{color:var(--sk-hl)}
+.sk-gap-list{width:min(560px,100%);margin:26px auto 0;list-style:none;padding:20px 22px;
+ background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+ border-radius:var(--sk-radius);display:grid;gap:12px}
+.sk-gap-list li{display:flex;gap:12px;font-size:14.5px;color:rgba(255,255,255,.9);line-height:1.7}
+.sk-gap-list li:before{content:"\25B8";color:var(--sk-hl);font-weight:900;flex:none}
+.sk-gap-close{margin:22px auto 0;color:rgba(255,255,255,.72);font-size:14.5px;text-align:center}
+/* -- ストーリー -- */
+.sk-story{width:min(620px,100%);margin:46px auto 0;background:var(--sk-card);color:var(--sk-ink);
+ border-radius:var(--sk-radius);padding:34px 28px 26px;box-shadow:0 24px 60px rgba(0,0,0,.28);position:relative}
+.sk-story-tag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);white-space:nowrap;
+ background:var(--sk-dark1);color:#fff;border:4px solid var(--sk-card);border-radius:999px;
+ padding:6px 18px;font-weight:900;font-size:13px}
+.sk-story p{margin:0 0 14px;font-size:15px;line-height:1.9}
+.sk-story p:last-child{margin-bottom:0}
+.sk-punch{font-size:clamp(17px,2.8vw,20px);font-weight:900;line-height:1.7;color:var(--sk-accent);
+ border-bottom:3px solid var(--sk-soft);display:inline;padding-bottom:2px}
+.sk-habit{background:var(--sk-warm);border-left:5px solid var(--sk-warm-b);
+ border-radius:0 var(--sk-radius-sm) var(--sk-radius-sm) 0;
+ padding:15px 18px;color:var(--sk-warm-ink);font-size:14.5px;line-height:1.85}
+.sk-habit b{color:var(--sk-warm-b)}
+/* -- オファー＋CTA -- */
+.sk-cta{background:var(--sk-surface);padding:60px 16px 56px;font-family:var(--sk-font);
+ line-height:1.85;font-size:16px;color:var(--sk-ink)}
+.sk-bridge{margin:0 auto 22px;text-align:center;color:var(--sk-ink);opacity:.86;
+ font-size:clamp(15px,2.2vw,17px);font-weight:700;line-height:1.95}
+.sk-offer{width:min(560px,100%);margin:0 auto 24px;background:var(--sk-card);border:1px solid var(--sk-line);
+ border-radius:var(--sk-radius);padding:30px 24px;box-shadow:var(--sk-shadow);position:relative}
+.sk-offer-badge{position:absolute;top:-13px;right:18px;background:var(--sk-warm-b);color:#fff;font-weight:900;
+ font-size:12px;padding:6px 14px;border-radius:999px}
+.sk-offer h3{margin:0 0 18px;text-align:center;font-family:var(--sk-serif);
+ font-size:clamp(21px,3.6vw,27px);font-weight:700;line-height:1.4;color:var(--sk-ink)}
+.sk-cover{width:min(320px,100%);margin:0 auto 20px}
+.sk-cover img{width:100%;border-radius:12px;display:block}
+.sk-toc{background:var(--sk-surface);border:1px solid var(--sk-line);border-radius:var(--sk-radius-sm);padding:20px 22px}
+.sk-toc-head{text-align:center;font-weight:900;font-size:14px;padding-bottom:11px;margin:0 0 6px;
+ border-bottom:1px solid var(--sk-line);color:var(--sk-ink)}
+.sk-toc ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.sk-toc li{display:flex;gap:10px;font-size:14px;line-height:1.7;color:var(--sk-ink)}
+.sk-toc li:before{content:"\25C6";color:var(--sk-accent2);flex:none}
+.sk-toc li b{flex:none;white-space:nowrap;min-width:3.6em}
+.sk-offer-close{margin:20px 0 0;font-size:14px;color:var(--sk-muted);line-height:1.9}
+.sk-offer-close strong{color:var(--sk-accent)}
+.sk-line-btn{display:flex;flex-direction:column;align-items:center;gap:5px;width:min(560px,100%);margin:0 auto;
+ padding:19px 20px;border-radius:var(--sk-radius);background:var(--sk-green);color:#fff;font-weight:900;
+ text-decoration:none;box-shadow:0 16px 40px rgba(6,199,85,.30);position:relative;transition:transform .2s ease}
+.sk-line-btn:hover{transform:translateY(-3px)}
+.sk-line-btn:active{transform:translateY(0) scale(.99)}
+.sk-line-btn:after{content:"";position:absolute;inset:0;border-radius:inherit;
+ animation:skPulse 2.4s ease-out infinite;pointer-events:none}
+@keyframes skPulse{0%{box-shadow:0 0 0 0 rgba(9,126,42,.35)}70%{box-shadow:0 0 0 14px rgba(9,126,42,0)}
+ 100%{box-shadow:0 0 0 0 rgba(9,126,42,0)}}
+.sk-tap{font-size:12px;font-weight:800;background:rgba(255,255,255,.22);padding:3px 13px;border-radius:999px}
+.sk-btn-main{display:flex;align-items:center;gap:10px;font-size:clamp(17px,3vw,21px)}
+.sk-btn-main svg{width:24px;height:24px;flex:none}
+.sk-scarcity{width:min(560px,100%);margin:14px auto 0;padding:13px 16px;background:var(--sk-warm);
+ border:1px solid var(--sk-warm-bd);border-radius:var(--sk-radius-sm);color:var(--sk-warm-ink);
+ font-size:12.5px;line-height:1.85}
+.sk-note{text-align:center;color:var(--sk-muted);font-size:12px;margin:12px 0 0}
+/* -- コピー直後のひとこと（離脱ポイント対策）--
+   プロンプトをコピーした瞬間＝読者の目的達成。そこからCTAまで距離があるため、
+   その瞬間だけ画面下に小さく出す。押し売りにならないよう、
+   ページ側の配色を使い、8秒で自動的に消え、×で閉じられる。 */
+.sk-cue{position:fixed;left:50%;bottom:16px;z-index:99999;display:flex;align-items:center;gap:10px;
+ width:min(420px,calc(100% - 24px));padding:12px 14px;border-radius:14px;
+ background:var(--sk-dark1);color:#fff;font-family:var(--sk-font);font-size:13.5px;line-height:1.6;
+ box-shadow:0 14px 40px rgba(0,0,0,.34);text-decoration:none;
+ transform:translate(-50%,18px);opacity:0;pointer-events:none;
+ transition:opacity .28s ease,transform .28s ease}
+.sk-cue.is-on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.sk-cue b{color:var(--sk-hl)}
+.sk-cue .sk-cue-arrow{margin-left:auto;flex:none;font-weight:900;color:var(--sk-hl)}
+.sk-cue-x{position:absolute;top:-9px;right:-9px;width:24px;height:24px;border-radius:50%;border:0;
+ background:var(--sk-dark1);color:rgba(255,255,255,.8);font-size:14px;line-height:1;cursor:pointer;
+ box-shadow:0 4px 12px rgba(0,0,0,.3)}
+@media(prefers-reduced-motion:reduce){.sk-cue{transition:none}}
+/* -- フッター -- */
+.sk-footer{padding:40px 16px 56px;text-align:center;border-top:1px solid var(--sk-line);
+ background:var(--sk-surface);font-family:var(--sk-font);line-height:1.8}
+.sk-footer-ig{display:inline-flex;align-items:center;gap:9px;color:var(--sk-accent2);font-weight:850;
+ font-size:14px;text-decoration:none;margin-bottom:14px}
+.sk-footer-ig:hover{text-decoration:underline}
+.sk-footer-ig svg{width:19px;height:19px}
+.sk-footer p{margin:0 0 4px;font-size:13px;color:var(--sk-muted)}
+.sk-footer .sk-copy{margin:6px 0 0;font-size:11.5px;color:var(--sk-muted);opacity:.75}
+.sk-footer .sk-tagline{margin:0 0 12px;font-size:12px;color:var(--sk-muted);opacity:.85;letter-spacing:.03em}
+@media(prefers-reduced-motion:reduce){.sk-line-btn:after{animation:none}}
+@media(max-width:600px){
+ .sk-br{display:inline}
+ .sk-sec{padding:44px 14px}
+ .sk-gap{padding:48px 14px}
+ .sk-cta{padding:48px 14px 44px}
+ .sk-story{padding:28px 17px 22px;margin-top:38px}
+ .sk-story-tag{font-size:11.5px;padding:6px 14px}
+ .sk-offer{padding:24px 16px}
+ .sk-toc{padding:16px 14px}
+ .sk-gap-list{padding:17px 16px}
+ .sk-author{padding:9px 11px;gap:11px}
+ .sk-author img{width:46px;height:46px}
+ .sk-footer{padding:34px 14px 48px}
+}
+
+.sk-gap .s2-c{text-align:center}
+.sk-gap .s2-c .sk-nb,.s2-q .sk-nb,.s3-keep .sk-nb,.s3-push .sk-nb,.s3-for .sk-nb{display:inline-block}
+.s2-q{margin:30px auto 16px;font-size:clamp(19px,4.4vw,24px)}
+
+.s3-top{width:min(620px,calc(100% - 24px));margin:20px auto 8px}
+.s3-img{position:relative;display:block;width:min(620px,100%);margin:0 auto;border-radius:14px;overflow:hidden;
+ box-shadow:0 14px 30px rgba(18,48,79,.14);animation:s3Bob 2.6s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
+.s3-img img{display:block;width:100%;height:auto}
+.s3-img:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:linear-gradient(110deg,transparent 40%,rgba(255,255,255,.5) 50%,transparent 60%) no-repeat;background-size:250% 100%;
+ animation:s3Shine 3s ease-in-out infinite}
+.s3-img:active{transform:scale(.985)}
+.s3-hand{position:absolute;left:var(--hx);top:var(--hy);z-index:2;font-size:clamp(24px,6.5vw,36px);line-height:1;pointer-events:none;
+ filter:drop-shadow(0 3px 4px rgba(0,0,0,.3));animation:s3Tap 1.4s ease-in-out infinite}
+.s3-tap{margin:10px 0 0;text-align:center;font-size:12.5px;font-weight:700;color:var(--sk-muted,#777)}
+.s3-tap:after{content:" \1F446"}
+.s3-keep{margin:2px 0 0;text-align:center;font-size:12px;color:var(--sk-muted,#888)}
+
+.sk-cta .s3-voices{display:flex;flex-direction:column;align-items:center;gap:8px;margin:0 auto 10px}
+.s3-voices p{margin:0;padding:9px 16px;border-radius:14px;background:#fff;border:1px solid #DCE7DF;font-size:14.5px;font-weight:700;color:#3C5268}
+.s3-for{margin:14px 0 18px;text-align:center;font-family:var(--sk-serif);font-weight:900;font-size:clamp(21px,5vw,26px);color:#12304F}
+.s3-list{list-style:none;width:min(620px,100%);box-sizing:border-box;margin:16px auto 0;padding:6px 18px;background:#fff;border-radius:16px;
+ border:2px solid #E8D8A8;box-shadow:inset 0 0 0 4px #fff,inset 0 0 0 5px #F1E6C4}
+.s3-list li{display:flex;align-items:center;gap:12px;padding:11px 2px;font-size:14.5px;line-height:1.5;color:#12304F}
+.s3-list li+li{border-top:2px dotted #EADFC0}
+.s3-list b{color:#2FA84F}
+.s3-no{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#2FA84F;color:#fff;font-size:12.5px;font-weight:900}
+.s3-push{margin:22px 0 16px;text-align:center;font-size:15px;line-height:1.8;color:#3C5268}
+.s3-push b{color:#12304F}
+
+/* 受け取るバナーの演出：光が走る／ゆっくり弾む／指が押す。動きを減らす設定の人には止める */
+@keyframes s3Shine{0%{background-position:130% 0}55%,100%{background-position:-30% 0}}
+@keyframes s3Bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes s3Tap{0%,100%{transform:translate(0,6px) scale(1)}45%{transform:translate(0,0) scale(1)}60%{transform:translate(0,-2px) scale(.88)}}
+@media(prefers-reduced-motion:reduce){.s3-img,.s3-img:before,.s3-hand{animation:none}}
+
+.g3-q{text-align:center;font-family:var(--sk-serif);font-weight:900;line-height:1.6;color:#fff}
+.g3-chips{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:0 auto 22px}
+.g3-chips>span{display:block;max-width:100%;padding:7px 14px;border-radius:999px;
+ border:1.5px dashed var(--sk-hl);font-size:13.5px;font-weight:800;line-height:1.7;color:#fff}
+.g3-story .g3-end{text-align:center}
+
+.g3-q{text-align:center;font-family:var(--sk-serif);font-weight:900;line-height:1.6;color:#fff}
+.g3-chips{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:0 auto 22px}
+.g3-chips>span{display:block;max-width:100%;padding:7px 14px;border-radius:999px;
+ border:1.5px dashed var(--sk-hl);font-size:13.5px;font-weight:800;line-height:1.7;color:#fff}
+.g3-story .g3-end{text-align:center}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f5f0e8;color:#2c2416;font-family:Meiryo,"Yu Gothic",sans-serif;line-height:1.9}.book{max-width:760px;margin:auto;background:#faf7f2}.book .cover{width:100%;display:block}.book .part{padding:34px 34px;border-bottom:1px solid #ddd5c0}.book h1,.book h2,.book h3{line-height:1.5;text-wrap:balance}.book h1{font-size:clamp(23px,5vw,32px)}.book h2{font-size:clamp(23px,5vw,29px);margin:0 0 20px}.book h3{font-size:19px}.book p{margin:14px 0;text-wrap:pretty}.book .eyebrow{font-size:13px;color:#7a6e5a;font-weight:bold;letter-spacing:.08em}.book .num{display:block;color:#9b7927;font-size:14px;letter-spacing:.08em;margin-bottom:8px}.book .figure{margin:22px -12px}.book .figure img{display:block;width:100%;height:auto}.book figcaption{font-size:12px;color:#7a6e5a;margin:8px 12px;line-height:1.8}.book .video-slot{aspect-ratio:16/9;border:1px solid #bfb79e;background:linear-gradient(135deg,#e5e2cf,#eff1e5);display:grid;place-content:center;text-align:center;padding:24px;font-size:16px;line-height:2}.book .video-slot strong{font-size:20px}.book .video-slot small{display:block;color:#736b54}.book a{color:#225f62;text-underline-offset:4px;overflow-wrap:anywhere}.book .btn{display:block;background:#173e3e;color:#fff;text-decoration:none;border:0;border-radius:8px;padding:14px 18px;text-align:center;font-size:16px;font-weight:bold;margin:15px 0;cursor:pointer;transition:transform .18s,background .18s}.book .btn:hover{background:#235852;transform:translateY(-2px)}.book .row{display:flex;gap:10px;align-items:center}.book .row img{width:33px;height:33px;object-fit:contain}.book details{border-top:1px solid #ddd5c0;margin:20px 0 0;padding:14px 0}.book summary{cursor:pointer;font-size:15px;font-weight:bold;line-height:1.7}.book details p,.book details li{font-size:15px}.book pre{white-space:pre-wrap;overflow-wrap:anywhere;font-family:inherit;font-size:14px;background:#eee9dc;padding:16px;border-radius:6px;max-height:370px;overflow:auto;line-height:1.85}.book .note{border-left:3px solid #bb9650;padding-left:14px;font-size:14px;line-height:1.8}.book .small{font-size:13px;color:#736b54}.book .sample{background:#fff;padding:22px 24px;border-left:5px solid #d8bb70;box-shadow:0 9px 28px #42371a13}.book .sample strong{font-size:clamp(20px,4.7vw,28px);color:#173e3e}.book .sample small{display:block;color:#7a6e5a;margin-bottom:7px}.book .copy-status{font-size:13px;color:#28634b;min-height:1.5em}.book textarea{display:block;resize:vertical;width:100%;min-height:115px;padding:16px;font:16px/1.8 Meiryo,sans-serif;color:#173e3e;border:1px solid #a4b0a5;border-radius:8px;background:#fff}.book label{display:block;font-weight:bold;margin:18px 0 8px}.book .reveal{animation:appear .7s ease-out both}@keyframes appear{from{opacity:.75;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.sk-head h2.sk-h{text-align:center!important}.g3-q{margin:25px auto!important}.g3-chips{display:flex!important;flex-wrap:wrap!important;gap:9px!important;justify-content:center!important}.g3-chips>span{max-width:100%}.sk-nb{max-width:100%}@media(max-width:520px){.book .part{padding:27px 22px}.book .figure{margin:20px -10px}.book .sample{padding:18px 16px}.book .row{font-size:15px}}@media(max-width:360px){.book .part{padding:25px 17px}.book .video-slot{padding:14px}.book .video-slot strong{font-size:17px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}</style><style id="revision-v2">
+body{background:#edf1f7;color:#142340}.book{background:#fff;max-width:760px}.book .part{padding:28px 34px;border-bottom:1px solid #e2e8f2}.book h1{color:#091b45;font-size:clamp(25px,6vw,38px);line-height:1.35;letter-spacing:-.04em}.book h2{color:#102b58;font-size:clamp(23px,5vw,30px);line-height:1.45;margin-bottom:16px}.book p{font-size:16px;line-height:1.85}.book .num{color:#1c68e5;letter-spacing:.12em;font-weight:700}.book .btn{background:#12387a;border-radius:7px;padding:14px 16px;line-height:1.55;box-shadow:0 4px 10px #10347310}.book .btn:hover{background:#1c55ac}.book a{color:#1b58ac}.book a.btn{color:#fff}.book .note{border-color:#498bff;color:#334866}.book .small,.book figcaption{color:#52617a;font-size:12px}.book pre{background:#f1f5fb}.book details{border-color:#dfe6f0;margin-top:16px;padding:13px 0}.book summary{font-size:14px}.book .figure{margin:20px -12px 12px}.book .screen-figure{background:#faf7f2;border-radius:10px;overflow:hidden}.book .screen-figure img{mix-blend-mode:multiply}.book .screen-figure figcaption{padding-bottom:8px}.book .video-slot{background:#edf2fa;color:#52617a;border:1px solid #d8e1ef}.book .video-slot strong{font-size:16px;font-weight:500}.book .copy-status{min-height:0;margin:0;font-size:12px;color:#315b8d}.book .copy-status:empty{display:none}.book textarea{border-color:#b9c9df;color:#173463;min-height:90px}.book .use-cases{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.book .use-cases span{font-size:13px;background:#e9f1ff;color:#21477c;padding:4px 11px;border-radius:4px}@media(max-width:520px){.book .part{padding:24px 22px}.book p{font-size:15px}.book .btn{font-size:15px}.book .figure{margin:18px -10px 10px}}@media(max-width:360px){.book .part{padding:22px 17px}.book .btn{font-size:14px}}
+</style></head><body><main class="book">
+<img alt="すみっち式 0円AI使い倒しマニュアル" class="cover" src="assets/cover-v2.jpg"/>
+
+<aside aria-label="LINE登録者限定の特典" class="s3-top">
+<a class="s3-img" href="https://sub.aione.co.jp/line/open/Iu0m3ReMw97D?mtid=PxeHUC98TlGc" rel="noopener noreferrer" style="--hx:50%;--hy:86%" target="_blank">
+<img alt="AI初心者からでも始められる『AIマネタイズの教科書』5大特典 無料プレゼント。特典を受け取る" src="assets/cta-A_top.jpg"/>
+<span aria-hidden="true" class="s3-hand">👆</span>
+</a>
+<p class="s3-tap">タップで受け取れます</p>
+<p class="s3-keep"><span class="sk-nb">今回の特典は、</span><span class="sk-nb">このまま下で全部読めます。</span></p>
+</aside>
+<section class="part"><h1>課金する前に、<br/>ここまで試せる。</h1><div class="use-cases"><span>文章作成</span><span>台本づくり</span><span>ツール連携</span></div><p>文章づくりも、台本も、ツール連携も。まずはGoogleの無料枠をつなぎ、見出しを１本作ってみます。</p>
+<details><summary>無料で使える範囲</summary><p>無料なのはツール本体と、各社が設定したAPIの無料枠です。ChatGPTの有料プランやClaude本体が無料になるものではありません。GPT-OSSなどの公開モデルは、対応する提供元の条件で使います。</p><p>動画の「毎月70億」は各社の枠を合わせた規模の話で、１人が必ず使える量ではありません。対応数・利用量・モデルは更新されます。Premiumのカタログ即時更新は別の有料機能で、この練習には購入不要です。</p><p>開発元は個人の試用・学習を想定しています。この教材では副業に必要な文章づくりを練習します。受託業務や公開サービスの本番運用は、各社の条件と有料APIを別途確認してください。</p></details></section>
+<section class="part" id="install"><span class="num">01 / 準備</span><h2>アプリをPCに入れる</h2><p>PC用です。「Assets」でWindowsは.exe、Macは.dmgを選びます。</p><a class="btn" href="https://github.com/tashfeenahmed/freellmapi/releases/latest" rel="noopener noreferrer" target="_blank">FreeLLMAPIをダウンロード</a>
+<details><summary>ダウンロード後の開き方</summary><ol><li>「Assets」が閉じていれば開きます。「Source code」のZIPは今回使いません。</li><li>WindowsはPCのCPUに合うインストーラー。MacはApple Siliconならarm64、Intelならx64を選びます。「このMacについて」でチップを確認できます。</li><li>ダウンロードしたファイルを開き、表示される案内に沿って入れます。MacではアプリをApplicationsへ移します。</li><li>FreeLLMAPIを起動し、トレイ／メニューバーからダッシュボードを開きます。通常の接続先は http://localhost:3001 です。別ポートが表示されたらその値を使います。</li></ol><p>アプリが開かない場合は配布元・対応OS・CPUを確認してください。OSの警告を無条件に解除する必要はありません。</p><figure class="figure"><a href="assets/desktop.png" rel="noopener noreferrer" target="_blank"><img alt="公式のFreeLLMAPI管理画面。上部のKeysとPlaygroundへ進む" src="assets/desktop.png"/></a><figcaption>起動後の管理画面例（公式掲載）。上部のKeysとPlaygroundを使います。</figcaption></figure></details>
+</section>
+<section class="part" id="key"><span class="num">02 / 接続</span><h2>Googleをつなぐ</h2><div class="row"><img alt="Googleのアイコン" src="assets/google.png"/><b>Google AI Studio</b></div><p>Google AI StudioでAPIキーをコピーします。</p><a class="btn" href="https://aistudio.google.com/api-keys" rel="noopener noreferrer" target="_blank">APIキーを用意する</a><p class="note">「Free」を選択。課金設定は不要です。</p>
+<details><summary>キーの作成と無料枠の確認</summary><ol><li>自分のGoogleアカウントでログインします。初回の規約は内容を確認して進めます。</li><li>既存のキーがあれば、紐づくプロジェクトのBilling TierがFreeか確認します。有料の既存プロジェクトはこの練習では選びません。</li><li>新規なら「Create API key」から名前とプロジェクトを指定して作成します。表示に従って新しいプロジェクトを作るか、無料の既存プロジェクトを選びます。</li><li>キーをコピーし、次のFreeLLMAPIの入力欄だけに貼ります。チャットやSNSへ貼らないでください。</li></ol><p>対象地域・アカウント・モデルによって利用条件が異なります。Freeでも利用できない場合は、課金せず公式の条件を確認してください。</p><p><a href="https://aistudio.google.com/docs/api-key" rel="noopener noreferrer" target="_blank">Googleのキー作成ガイド</a> ／ <a href="https://aistudio.google.com/docs/billing" rel="noopener noreferrer" target="_blank">無料・有料の区分</a></p></details>
+<figure class="figure screen-figure"><a href="assets/add-key-real.jpg" rel="noopener noreferrer" target="_blank"><img alt="Google AI Studioの選択とAPIキー入力欄の実画面" src="assets/add-key-real.jpg"/></a><figcaption>実画面：キー追加欄（未入力）</figcaption></figure>
+<p>FreeLLMAPIの「Keys → Add key」で登録します。</p><details><summary>追加画面の項目と確認</summary><p>「Provider key」で提供元を選び、「API key」にコピーしたキーを貼ります。Labelは自分で分かる呼び名です。「Add key」で追加し、一覧の状態を確認します。UIを日本語表示にしている場合は対応する訳語になります。</p><p>「healthy」が接続確認の目印です。エラーならコピー漏れ・キーの制限・プロジェクトの利用条件を確認。保存されたことだけで返答まで成功したとは判断せず、次の工程で試します。</p></details></section>
+<section class="part" id="practice"><span class="num">03 / 作成</span><h2>見出しを10案出す</h2><p>「Playground（遊び場）」で無料のGeminiを選び、下の指示文を貼って送信。</p><p class="note">会社・顧客の情報は使わず、練習用の題材で試します。</p>
+<figure class="figure screen-figure"><a href="assets/prompt-input-real.jpg" rel="noopener noreferrer" target="_blank"><img alt="Playgroundのモデル選択と、今回の全文指示を貼る入力欄" src="assets/prompt-input-real.jpg"/></a><figcaption>実画面：指示文を貼った送信前の状態</figcaption></figure><button class="btn" data-copy="prompt-create">10案を作る指示文をコピー</button><div class="copy-status" role="status"></div><details><summary>指示文の全文</summary><pre data-copy-source="" id="prompt-create">会社員向けに「仕事のメモをAIで整理する方法」を紹介します。
+Instagramリールの冒頭で使う見出しを10案出してください。
+1案は20文字以内。読む人が困っている場面を具体的にし、成果や収益を保証する表現は避けてください。
+実際には試していない体験談や、根拠のない数字は入れないでください。
+番号付きで見出しだけを出力してください。</pre></details>
+<details><summary>画面の見方・返答がないとき</summary><figure class="figure"><a href="assets/playground.png" rel="noopener noreferrer" target="_blank"><img alt="FreeLLMAPI公式のPlayground画面" src="assets/playground.png"/></a><figcaption>公式の画面例。今回の作例の実行結果ではありません。</figcaption></figure><p>現在の画面では、モデル選択は設定パネルの「モデル」、入力欄は会話画面の下側です。返答の内容と、実際に使われたモデル名を見ます。無料枠を複数登録している場合はAutoで切り替えを使えます。</p><p>キーが未接続なら02へ戻ります。429は利用量や頻度の上限を示します。時間を置くか、利用可能な別の無料モデルを選びます。すべての枠が尽きた場合、切り替えても続けられません。401/403はキー・権限・利用条件を確認してください。</p></details></section>
+<section class="part" id="review"><span class="num">04 / 選ぶ</span><h2>使う見出しを選ぶ</h2><figure class="figure"><a href="assets/choice-v2.jpg" rel="noopener noreferrer" target="_blank"><img alt="見出しの例。AIで仕事が変わるから、会議メモ、あとで読めないへ具体化する" src="assets/choice-v2.jpg"/></a><figcaption>説明用の作例</figcaption></figure>
+<button class="btn" data-copy="prompt-review">見直しの指示文をコピー</button><div class="copy-status" role="status"></div><details><summary>指示文の全文</summary><pre data-copy-source="" id="prompt-review">直前に出した10案を、次の条件で見直してください。
+題材は「会社員が仕事のメモをAIで整理する方法」です。
+①読む人がいつ何に困るか想像できる
+②動画の内容と一致する
+③1案20文字以内
+④成果・収益の保証、根拠のない数字、架空の体験がない
+条件に合う3案を選び、選んだ理由を各1行添えてください。
+条件を満たさない箇所だけを直し、問題がなければ残してください。
+最後に「保存する見出し」として、最も具体的な1案を番号なしで出してください。</pre></details><p class="small">同じ会話に送信。選ばれた案も、内容・文字数・言い過ぎを確認します。</p>
+<details><summary>10案の見本を見る</summary><p>以下は説明用に作成した見本です。実行するモデルによって回答は変わります。</p><ol><li>会議メモ、あとで読めない</li><li>散らかったメモをAIで整理</li><li>会議の決定事項、どこだっけ</li><li>メモから担当と期限を整理</li><li>仕事のメモ、探す前に整理</li><li>やることが埋もれるメモに</li><li>会議後のメモを３つに分ける</li><li>メモを見ても動けないとき</li><li>書いたメモを次の行動に</li><li>AIでメモを整理する最初の一歩</li></ol></details></section>
+<section class="part" id="save"><span class="num">05 / 保存</span><h2>見出しを保存する</h2><p>回答の見出しを貼って保存。開き直して確認します。</p><label for="final-text">保存する見出し</label><textarea id="final-text" placeholder="ここに見出しを貼る"></textarea><button class="btn" id="save-txt">リール見出し.txtを保存</button><div class="copy-status" id="save-status" role="status"></div><p class="small">PCの「ダウンロード」フォルダーを確認します。</p>
+<a class="btn" download="" href="downloads/free-ai-practice.zip">指示文と見本をまとめて保存</a><p class="small">PC用：ZIPを保存 → すべて展開 → はじめに.txtを開く。</p></section>
+<section class="part" id="next"><h2>台本やツール連携にも使う</h2><p>同じ題材を30秒の台本へ。ほかのAIやClaude Codeとの接続方法も下にまとめました。</p><button class="btn" data-copy="prompt-script">台本の指示文をコピー</button><div class="copy-status" role="status"></div><details><summary>指示文の全文</summary><pre data-copy-source="" id="prompt-script">次の条件で、Instagramリールの30秒用の練習台本を作ってください。
+テーマ：会社員が仕事のメモをAIで整理する方法
+見出し：会議メモ、あとで読めない
+伝える手順：自分で書いた練習用メモを用意する→AIに「決定事項・担当・期限」に分けてもらう→元のメモと見比べる
+会社や顧客の実データは使いません。分からない担当や期限を推測で補わず「未確認」にします。
+冒頭→手順→確認の順で、話すセリフと映すものを分けてください。
+実績・体験談・作業時間の短縮率・収益は創作せず、成果を保証しないでください。</pre></details>
+<details><summary>もう１社追加して切り替える</summary><div class="row"><img alt="Groqのロゴ" src="assets/groq.png"/><b>Groq</b></div><p><a href="https://console.groq.com/keys" rel="noopener noreferrer" target="_blank">GroqCloudのAPI Keys</a>でキーを作り、FreeLLMAPIのKeysでGroqを選んで登録します。GPT-OSS等の対応モデルと無料枠は、その時点の<a href="https://console.groq.com/docs/models" rel="noopener noreferrer" target="_blank">公式モデル一覧</a>で確認してください。</p><p>Modelsのチャットモデル画面で「Fallback Chain」の順を確認。最初のモデルが制限やエラーになった際、使える次の候補へ進みます。Autoを選んだときの動作と、実際の提供元表示を確認してください。キーを登録していない会社の枠が自動で使えるわけではありません。</p><figure class="figure"><a href="assets/fallback-chain.png" rel="noopener noreferrer" target="_blank"><img alt="公式のFallback Chain画面例" src="assets/fallback-chain.png"/></a><figcaption>公式掲載画面。複数の利用可能な接続先が必要です。</figcaption></figure></details>
+<details><summary>Claude Codeにつなぐ場合</summary><p>PCでClaude Codeを使っている方向けの応用です。中で動くのは登録したモデルで、Claude本体が無料になるわけではありません。</p><ol><li>先にPlaygroundで返答が得られることを確認。</li><li>Keysの「Unified API key」で共通キーを取得。これはGoogleのキーとは別です。</li><li>FreeLLMAPIの「Agents」からClaude Codeを選び、表示される現在の接続手順を確認します。</li><li>設定を書き換える前にバックアップし、現在のモデル・キー・接続先を控えます。キー入りのコマンドは公開チャットへ貼らず、自分のPCのターミナルで扱います。</li><li>再起動後に短い依頼を試し、FreeLLMAPIのログで接続先を確認。元へ戻す場合はバックアップから復元します。</li></ol><p>コマンドや対応条件は更新されるため、<a href="https://github.com/tashfeenahmed/freellmapi/blob/main/docs/en/clients/01-agent-clients.md" rel="noopener noreferrer" target="_blank">公式のClaude Code接続手順</a>を参照してください。</p></details>
+<details><summary>参照先・無料枠の確認</summary><p><a href="https://github.com/tashfeenahmed/freellmapi" rel="noopener noreferrer" target="_blank">FreeLLMAPI公式</a> ／ <a href="https://freellmapi.co/models" rel="noopener noreferrer" target="_blank">対応モデル</a> ／ <a href="https://freellmapi.co/" rel="noopener noreferrer" target="_blank">無料とPremiumの違い</a> ／ <a href="https://aistudio.google.com/docs/billing" rel="noopener noreferrer" target="_blank">Gemini APIの無料枠</a></p><p>FreeLLMAPI画面画像は公式リポジトリ掲載素材（MIT）。人物はすみっちの提供素材。練習見本は本教材の説明用で、売上やツールの実応答を示すものではありません。</p></details></section></main>
+<section class="sk-gap" id="sk-gap">
+<div class="sk-wrap">
+<div class="sk-head"><h2 class="sk-h"><span class="sk-nb">ここまで読んでくれて、</span><span class="sk-nb">ありがとうございます。</span></h2></div>
+<p class="sk-gap-lead s2-c"><span class="sk-nb">この手順でリールの見出しを１本作れたら、</span><br/><span class="sk-nb">それだけで</span><span class="sk-nb"><b>大きな一歩</b>です。</span></p>
+<p class="g3-q s2-q"><span class="sk-nb">ただ、見出しができたあと、</span><br/><span class="sk-nb">ほとんどの人が、</span><span class="sk-nb">同じところで迷います。</span></p>
+<div class="g3-chips"><span>? 誰に届ける？</span><span>? 何を発信する？</span><span>? 仕事へどうつなげる？</span></div>
+<p class="sk-gap-lead s2-c"><span class="sk-nb">ここは、AIに聞いても</span><br/><span class="sk-nb">なかなか答えが出ない</span><span class="sk-nb">んですよね。</span></p>
+<div class="sk-story g3-story">
+<span class="sk-story-tag">僕も、最初はここで止まりました。</span>
+<p><span class="sk-nb">AIにnote記事を20〜30本書かせて、</span><span class="sk-nb">売れたのは<b>たった1件</b>。</span></p>
+<p class="g3-end"><b><span class="sk-nb">AIを使える、</span><span class="sk-nb">知ってるだけじゃ、</span><span class="sk-nb">意味がなかったんです。</span></b></p></div>
+</div>
+</section>
+<section class="sk-cta" id="sk-cta">
+<div class="sk-wrap">
+<div class="s3-voices"><p>「じゃあ、どうすればいいの？」</p><p>「何から始めればいいの？」</p></div>
+<p class="s3-for">そんな方のために。</p>
+<a class="s3-img" href="https://sub.aione.co.jp/line/open/Iu0m3ReMw97D?mtid=PxeHUC98TlGc" rel="noopener noreferrer" style="--hx:60%;--hy:84%" target="_blank">
+<img alt="ここで特別なご案内です。LINE登録者限定、無料でプレゼント。豪華5大特典を今すぐ無料で受け取る" src="assets/cta-B_special.jpg"/>
+<span aria-hidden="true" class="s3-hand">👆</span>
+</a>
+<ul class="s3-list"><li><span class="s3-no">01</span><span>いま一番<b>始めやすい手法</b></span></li><li><span class="s3-no">02</span><span>そのまま使える<b>収益化プロンプト</b></span></li><li><span class="s3-no">03</span><span>迷わないための<b>神テンプレート</b></span></li><li><span class="s3-no">04</span><span>マネタイズのための<b>生成AIツール</b></span></li><li><span class="s3-no">05</span><span>AI×SNSの<b>リアル事例</b></span></li></ul>
+<p class="s3-push"><span class="sk-nb">せっかく始めるなら、</span><br/><span class="sk-nb"><b>僕みたいな遠回りは、</b></span><span class="sk-nb"><b>しなくていい。</b></span></p>
+<a class="s3-img" href="https://sub.aione.co.jp/line/open/Iu0m3ReMw97D?mtid=PxeHUC98TlGc" rel="noopener noreferrer" style="--hx:62%;--hy:70%" target="_blank">
+<img alt="いつ配布終了するかわかりません。受け取りたい方はお早めに。ここをタップで受け取る" src="assets/cta-C_soon.jpg"/>
+<span aria-hidden="true" class="s3-hand">👆</span>
+</a>
+</div>
+</section>
+<footer class="sk-footer">
+<a class="sk-footer-ig" href="https://www.instagram.com/smitch_ai_works/" rel="noopener noreferrer" target="_blank"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="20" rx="5" width="20" x="2" y="2"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" fill="currentColor" r="1.2" stroke="none"></circle></svg>Instagram：@smitch_ai_works</a>
+<p>すみっち ｜ 30歳・現役エンジニア／AI×副業を発信中</p>
+<p class="sk-copy">© 2026 @smitch_ai_works. All Rights Reserved.</p>
+<div id="operator-info"><p>運営者：すみっち（@smitch_ai_works）</p><p><a href="https://www.instagram.com/smitch_ai_works/" rel="noopener noreferrer" target="_blank">お問い合わせ（InstagramのDM）</a> ／ <a href="privacy.html">プライバシーポリシー</a></p><p>本ページは手順の解説であり、収益を保証するものではありません。成果は個人の状況により異なります。外部サービスの条件・規約等は変更される場合があるため、利用前に各サービスの公式情報をご確認ください。</p></div></footer><script>document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{const text=document.getElementById(b.dataset.copy).textContent;const status=b.nextElementSibling;try{await navigator.clipboard.writeText(text);status.textContent='全文をコピーしました';}catch(e){status.textContent='コピーできませんでした。下の全文を開いて選択してください。';}}));document.getElementById('save-txt').addEventListener('click',()=>{const v=document.getElementById('final-text').value;const s=document.getElementById('save-status');if(!v.trim()){s.textContent='保存する見出しを先に貼ってください。';return;}const blob=new Blob(['\ufeff'+v],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='リール見出し.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);s.textContent='保存を開始しました。ダウンロード先で開いて確認してください。';});</script></body></html>
